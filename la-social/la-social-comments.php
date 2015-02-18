@@ -51,12 +51,12 @@ class LA_Social_Comments extends LA_Social_Module {
 		foreach( array(
 			array(
 				'name' => 'allow_comment_login',
-				'label' => sprintf( __('Allow %s users to comment', 'fp'), $this->api_name() ),
+				'label' => sprintf( __('Allow %s users to comment'), $this->api_name() ),
 				'type' => 'checkbox',
 			),
 			// array(
 			// 	'name' => 'comment_share_text',
-			// 	'label' => __('Comment share text', 'fp'),
+			// 	'label' => __('Comment share text'),
 			// ),
 		) as $field ) {
 			$field['options_group'] = $options_group;
@@ -67,7 +67,7 @@ class LA_Social_Comments extends LA_Social_Module {
 	}
 
 	function section_callback() {
-		echo '<p>' . sprintf( __('Allow %s users to comment with their accounts.', 'fp'), $this->api_name() ) . '</p>';
+		echo '<p>' . sprintf( __('Allow %s users to comment with their accounts.'), $this->api_name() ) . '</p>';
 	}
 
 	function sanitize_options( $options ) {
@@ -79,12 +79,13 @@ class LA_Social_Comments extends LA_Social_Module {
 		$social_user = $this->parent->get_social_user();
 
 		if( $social_user ) {
-			echo '<div class="social-user social-user-' . $this->prefix() . '">',
-					 '<img src="' . $social_user['image'] . '" width="50" height="50" class="social-avatar avatar" />',
-					 '<h3>' . esc_html( sprintf(__('Hi %s!', 'fp'), $social_user['name'] ) ) . '</h3>',
-					 '<p>' . sprintf( __('You are connected with your %s account.', 'fp'), $this->parent->api_name() ) . '</p>',
-					 apply_filters( $this->prefix() . '_user_logout','<a href="?' . $this->prefix() . '-logout" class="social-logout">'.__('Logout', 'fp').'</a>').
-				 '</div>';
+			echo '<div class="social-user social-user-', $this->prefix(), '">',
+					'<img src="', $social_user['image'], '" width="50" height="50" class="social-avatar avatar" />',
+					'<h3>', esc_html( sprintf(__('Hi %s!'), $social_user['name'] ) ), '</h3>',
+					'<p>', sprintf( __('You are connected with your %s account.'), $this->parent->api_name() ), ' ',
+						apply_filters( $this->prefix() . '_user_logout','<a href="?' . $this->prefix() . '-logout" class="social-logout">' . __('Logout') . '</a>' ),
+					'</p>',
+				'</div>';
 			exit;
 		}
 		echo 0;
