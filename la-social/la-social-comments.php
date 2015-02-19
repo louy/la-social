@@ -35,7 +35,7 @@ class LA_Social_Comments extends LA_Social_Module {
 	}
 
 	function ajax_hook() {
-		return $this->prefix() . '_get_commenter_display';
+		return 'get_commenter_display';
 	}
 
 	function admin_notices() {
@@ -76,6 +76,10 @@ class LA_Social_Comments extends LA_Social_Module {
 	}
 
 	function ajax_get_display() {
+		if( @$_SESSION['comment_user_service'] !== $this->api_slug() ) {
+			return;
+		}
+
 		$social_user = $this->parent->get_social_user();
 
 		if( $social_user ) {
@@ -88,7 +92,7 @@ class LA_Social_Comments extends LA_Social_Module {
 				'</div>';
 			exit;
 		}
-		echo 0;
+
 		exit;
 	}
 
@@ -96,9 +100,11 @@ class LA_Social_Comments extends LA_Social_Module {
 		if( !is_singular() || is_user_logged_in() || !comments_open() ) {
 			return;
 		}
-		if( @$_SESSION['comment_user_service'] !== $this->api_slug() ) {
+
+		if( defined('LA_SOCIAL_COMMENTS_SCRIPT_SHOW') ) {
 			return;
 		}
+		define('LA_SOCIAL_COMMENTS_SCRIPT_SHOW', true);
 
 		?>
 		<script>
