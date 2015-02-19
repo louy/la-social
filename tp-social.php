@@ -158,7 +158,7 @@ class TP_Social extends LA_Social {
 					'oauth_verifier' => $_GET['oauth_verifier']
 				));
 
-				if( $reply->httpstatus !== 200 ) {
+				if( $reply->httpstatus != 200 ) {
 					$this->oauth_error( 'Error ' . $reply->httpstatus, $reply );
 				}
 
@@ -210,7 +210,7 @@ class TP_Social extends LA_Social {
 				'x_auth_access_type' => $auth_options['is_write'] ? 'write' : 'read'
 			));
 
-			if( $reply->httpstatus !== 200 ) {
+			if( $reply->httpstatus != 200 ) {
 				$this->oauth_error( 'Error ' . $reply->httpstatus, $reply );
 			}
 
