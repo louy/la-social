@@ -210,6 +210,8 @@ class FP_Social extends LA_Social {
 		if( isset( $_GET['action'] ) ) {
 			$_SESSION[ $this->prefix() . '_callback_action' ] = $_GET['action'];
 		}
+	
+		$_SESSION['comment_user_service'] = $this->api_slug();
 
 		$scope = array();
 		if( isset( $_GET['permissions'] ) && !empty($_GET['permissions']) ) {
