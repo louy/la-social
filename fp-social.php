@@ -251,7 +251,7 @@ class FP_Social extends LA_Social {
 				'name' => $me->getName(),
 				'email' => $me->getEmail(),
 				'url' => $me->getLink(),
-				'image' => $this->get_avatar( $me->getId(), 100, true ),
+				'image' => $this->get_avatar( $me->getId(), 100, '', false, true ),
 			);
 		} catch( \Exception $ex ) {
 			if( WP_DEBUG ) {
