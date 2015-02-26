@@ -17,10 +17,10 @@ class TP_Social extends LA_Social {
 		return 'twitter';
 	}
 	function name() {
-		return __('TweetPress');
+		return __('TweetPress', 'la-social');
 	}
 	function api_name() {
-		return __('Twitter');
+		return __('Twitter', 'la-social');
 	}
 
 	function app_configs() {
@@ -41,14 +41,14 @@ class TP_Social extends LA_Social {
 	function app_options_section_fields( $fields = array() ) {
 		$fields[] = array(
 			'name' => 'consumer_key',
-			'label' => __('Twitter Consumer Key', 'tp'),
+			'label' => __('Twitter Consumer Key', 'tp', 'la-social'),
 			'required' => true,
 			'constant' => 'TWITTER_CONSUMER_KEY',
 		);
 
 		$fields[] = array(
 			'name' => 'consumer_secret',
-			'label' => __('Twitter Consumer Secret', 'tp'),
+			'label' => __('Twitter Consumer Secret', 'tp', 'la-social'),
 			'required' => true,
 			'constant' => 'TWITTER_CONSUMER_SECRET',
 		);
@@ -67,39 +67,39 @@ class TP_Social extends LA_Social {
 	function app_options_section_callback() {
 		if( !$this->required_app_options_are_set() ) {
 			echo '<p>',
-				__('To connect your site to Twitter, you will need a Twitter Application. If you have already created one, please insert your Consumer Key and Consumer Secret below.', 'fp'),
+				__('To connect your site to Twitter, you will need a Twitter Application. If you have already created one, please insert your Consumer Key and Consumer Secret below.', 'fp', 'la-social'),
 			'</p>';
 			echo '<p><strong>',
-				esc_html( __("Can't find your key?", 'fp') ),
+				esc_html( __("Can't find your key?", 'fp', 'la-social') ),
 			'</strong></p>';
 			echo '<ol>',
 				'<li>',
-					sprintf( __('Get a list of your applications from here: <a target="_blank" href="%s">Twitter Applications List</a>', 'fp'), 'https://dev.twitter.com/apps/' ),
+					sprintf( __('Get a list of your applications from here: <a target="_blank" href="%s">Twitter Applications List</a>', 'fp', 'la-social'), 'https://dev.twitter.com/apps/' ),
 				'</li>',
 				'<li>',
-					__('Select the application you want, then copy and paste the Consumer Key and Consumer Secret from there.', 'fp' ),
+					__('Select the application you want, then copy and paste the Consumer Key and Consumer Secret from there.', 'fp', 'la-social' ),
 				'</li>',
 			'</ol>';
 			echo '<p><strong>',
-				esc_html( __("Haven't created an application yet?", 'fp') ),
+				esc_html( __("Haven't created an application yet?", 'fp', 'la-social') ),
 				'</strong> ',
-				esc_html( __("Don't worry, it's easy!", 'fp') ),
+				esc_html( __("Don't worry, it's easy!", 'fp', 'la-social') ),
 			'</p>';
 			echo '<ol>',
 				'<li>',
-					sprintf( __('Go to this link to create your application: <a target="_blank" href="%s">Twitter: Register an Application</a>', 'fp'), 'https://dev.twitter.com/apps/new' ),
+					sprintf( __('Go to this link to create your application: <a target="_blank" href="%s">Twitter: Register an Application</a>', 'fp', 'la-social'), 'https://dev.twitter.com/apps/new' ),
 				'</li>',
 				'<li><strong>',
-					__('Important Settings:', 'fp' ),
+					__('Important Settings:', 'fp', 'la-social' ),
 				'</strong></li>',
 				'<li>',
-					__('Default Access type must be set to "Read and Write".', 'fp' ),
+					__('Default Access type must be set to "Read and Write".', 'fp', 'la-social' ),
 				'</li>',
 				'<li>',
-					__('The other application fields can be set up any way you like.', 'fp' ),
+					__('The other application fields can be set up any way you like.', 'fp', 'la-social' ),
 				'</li>',
 				'<li>',
-					__('After creating the application, copy and paste the Consumer Key and Consumer Secret from the Application Details page.', 'fp' ),
+					__('After creating the application, copy and paste the Consumer Key and Consumer Secret from the Application Details page.', 'fp', 'la-social' ),
 				'</li>',
 			'</ol>';
 		}
@@ -138,7 +138,7 @@ class TP_Social extends LA_Social {
 	function oauth_start() {
 		$cb = $this->get_api_instance();
 		if( $cb === false ) {
-			wp_die( __('OAuth is misconfigured.') );
+			wp_die( __('OAuth is misconfigured.', 'la-social') );
 		}
 
 		if( isset($_GET['oauth_token']) ) {
@@ -190,7 +190,7 @@ class TP_Social extends LA_Social {
 			exit;
 
 		} elseif( !isset( $_GET['location'] ) && !isset( $_GET['action'] ) ) {
-			$this->oauth_error( __('Error: request has not been understood. Please go back and try again.') );
+			$this->oauth_error( __('Error: request has not been understood. Please go back and try again.', 'la-social') );
 		} else {
 
 			$auth_options = array(

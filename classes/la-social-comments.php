@@ -40,18 +40,18 @@ class LA_Social_Comments extends LA_Social_Module {
 
 	function admin_notices() {
 		if ( get_option( 'comment_registration' ) && fp_options('allow_comments') ) {
-			echo "<div class='error'><p>" . esc_html( sprintf( __("%s Comment function doesn't work with sites that require registration to comment."), $this->parent->name() ) ) . '</p></div>';
+			echo "<div class='error'><p>" . esc_html( sprintf( __("%s Comment function doesn't work with sites that require registration to comment.", 'la-social'), $this->parent->name() ) ) . '</p></div>';
 		}
 	}
 
 	function register_options( $page, $options_group ) {
 		$section = $this->prefix() . '_options_comments';
-		add_settings_section( $section, __('Comments'), array( $this, 'section_callback' ), $page );
+		add_settings_section( $section, __('Comments', 'la-social'), array( $this, 'section_callback' ), $page );
 
 		foreach( array(
 			array(
 				'name' => 'allow_comment_login',
-				'label' => sprintf( __('Allow %s users to comment'), $this->api_name() ),
+				'label' => sprintf( __('Allow %s users to comment', 'la-social'), $this->api_name() ),
 				'type' => 'checkbox',
 			),
 			// array(
@@ -67,7 +67,7 @@ class LA_Social_Comments extends LA_Social_Module {
 	}
 
 	function section_callback() {
-		echo '<p>' . sprintf( __('Allow %s users to comment with their accounts.'), $this->api_name() ) . '</p>';
+		echo '<p>' . sprintf( __('Allow %s users to comment with their accounts.', 'la-social'), $this->api_name() ) . '</p>';
 	}
 
 	function sanitize_options( $options ) {
@@ -87,9 +87,9 @@ class LA_Social_Comments extends LA_Social_Module {
 		if( $social_user ) {
 			echo '<div class="social-user social-user-', $this->prefix(), '">',
 					'<img src="', $social_user['image'], '" width="' . $image_size . '" height="' . $image_size . '" class="social-avatar avatar" />',
-					'<h3>', esc_html( sprintf(__('Hi %s!'), $social_user['name'] ) ), '</h3>',
-					'<p>', sprintf( __('You are connected with your %s account.'), $this->parent->api_name() ), ' ',
-						apply_filters( $this->prefix() . '_user_logout','<a href="?' . $this->prefix() . '-logout" class="social-logout">' . __('Logout') . '</a>' ),
+					'<h3>', esc_html( sprintf(__('Hi %s!', 'la-social'), $social_user['name'] ) ), '</h3>',
+					'<p>', sprintf( __('You are connected with your %s account.', 'la-social'), $this->parent->api_name() ), ' ',
+						apply_filters( $this->prefix() . '_user_logout','<a href="?' . $this->prefix() . '-logout" class="social-logout">' . __('Logout', 'la-social') . '</a>' ),
 					'</p>',
 				'</div>';
 			exit;

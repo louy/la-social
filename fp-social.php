@@ -21,10 +21,10 @@ class FP_Social extends LA_Social {
 		return 'facebook';
 	}
 	function name() {
-		return __('FacePress');
+		return __('FacePress', 'la-social');
 	}
 	function api_name() {
-		return __('Facebook');
+		return __('Facebook', 'la-social');
 	}
 
 	function app_configs() {
@@ -50,28 +50,28 @@ class FP_Social extends LA_Social {
 
 	function app_options_section_fields( $fields = array() ) {
 		$fanpage_help = '<p>' .
-			__('Some sites use Fan Pages on Facebook to connect with their users. The Application wall acts as a  Fan Page in all respects, however some sites have been using Fan Pages previously, and already have communities and content built around them. Facebook offers no way to migrate these, so the option to use an existing Fan Page is offered for people with this situation. Note that this doesn&#39;t <em>replace</em> the application, as that is not optional. However, you can use a Fan Page for specific parts of the FacePress plugin, such as the Fan Box, the Publisher, and the Chicklet.', 'fp') .
+			__('Some sites use Fan Pages on Facebook to connect with their users. The Application wall acts as a  Fan Page in all respects, however some sites have been using Fan Pages previously, and already have communities and content built around them. Facebook offers no way to migrate these, so the option to use an existing Fan Page is offered for people with this situation. Note that this doesn&#39;t <em>replace</em> the application, as that is not optional. However, you can use a Fan Page for specific parts of the FacePress plugin, such as the Fan Box, the Publisher, and the Chicklet.', 'fp', 'la-social') .
 		'</p>' .
 		'<p>' .
-			__('If you have a <a href="http://www.facebook.com/pages/manage/">Fan Page</a> that you want to use for your site, enter the ID of the page here. Most users should leave this blank.', 'fp') .
+			__('If you have a <a href="http://www.facebook.com/pages/manage/">Fan Page</a> that you want to use for your site, enter the ID of the page here. Most users should leave this blank.', 'fp', 'la-social') .
 		'</p>';
 
 		$fields[] = array(
 			'name' => 'appId',
-			'label' => __('Facebook App ID', 'fp'),
+			'label' => __('Facebook App ID', 'fp', 'la-social'),
 			'required' => true,
 			'constant' => 'FACEBOOK_APP_ID',
 		);
 
 		$fields[] = array(
 			'name' => 'secret',
-			'label' => __('Facebook App Secret', 'fp'),
+			'label' => __('Facebook App Secret', 'fp', 'la-social'),
 			'required' => true,
 			'constant' => 'FACEBOOK_APP_SECRET',
 		);
 		$fields[] = array(
 			'name' => 'fanpage',
-			'label' => __('Facebook Fan Page ID', 'fp'),
+			'label' => __('Facebook Fan Page ID', 'fp', 'la-social'),
 			'constant' => 'FACEBOOK_FANPAGE',
 			'help_text' => $fanpage_help,
 		);
@@ -89,39 +89,39 @@ class FP_Social extends LA_Social {
 	function app_options_section_callback() {
 		if( !$this->required_app_options_are_set() ) {
 			echo '<p>',
-				__('To connect your site to Facebook, you will need a Facebook Application. If you have already created one, please insert your Application ID and Application Secret below.', 'fp'),
+				__('To connect your site to Facebook, you will need a Facebook Application. If you have already created one, please insert your Application ID and Application Secret below.', 'fp', 'la-social'),
 			'</p>';
 			echo '<p><strong>',
-				esc_html( __("Can't find your ID?", 'fp') ),
+				esc_html( __("Can't find your ID?", 'fp', 'la-social') ),
 			'</strong></p>';
 			echo '<ol>',
 				'<li>',
-					sprintf( __('Get a list of your applications from here: <a target="_blank" href="%s">Facebook Application List</a>', 'fp'), 'https://developers.facebook.com/apps/' ),
+					sprintf( __('Get a list of your applications from here: <a target="_blank" href="%s">Facebook Application List</a>', 'fp', 'la-social'), 'https://developers.facebook.com/apps/' ),
 				'</li>',
 				'<li>',
-					__('Select the application you want, then copy and paste the Application ID and the Application Secret from there.', 'fp' ),
+					__('Select the application you want, then copy and paste the Application ID and the Application Secret from there.', 'fp', 'la-social' ),
 				'</li>',
 			'</ol>';
 			echo '<p><strong>',
-				esc_html( __("Haven't created an application yet?", 'fp') ),
+				esc_html( __("Haven't created an application yet?", 'fp', 'la-social') ),
 				'</strong> ',
-				esc_html( __("Don't worry, it's easy!", 'fp') ),
+				esc_html( __("Don't worry, it's easy!", 'fp', 'la-social') ),
 			'</p>';
 			echo '<ol>',
 				'<li>',
-					sprintf( __('Go to this link to create your application: <a target="_blank" href="%s">Facebook Connect Setup</a>', 'fp'), 'https://developers.facebook.com/quickstarts/?platform=web' ),
+					sprintf( __('Go to this link to create your application: <a target="_blank" href="%s">Facebook Connect Setup</a>', 'fp', 'la-social'), 'https://developers.facebook.com/quickstarts/?platform=web' ),
 				'</li>',
 				'<li>',
-					__('When it tells you to "Upload a file" on step 2, just hit the "Upload Later" button. This plugin takes care of that part for you!', 'fp' ),
+					__('When it tells you to "Upload a file" on step 2, just hit the "Upload Later" button. This plugin takes care of that part for you!', 'fp', 'la-social' ),
 				'</li>',
 				'<li>',
-					__('On the final screen, there will be an application info box. Copy and paste that information into here.', 'fp' ),
+					__('On the final screen, there will be an application info box. Copy and paste that information into here.', 'fp', 'la-social' ),
 				'</li>',
 				'<li>',
-					sprintf( __('You can get the rest of the information from the application on the <a target="_blank" href="%s">Facebook Application List</a> page.', 'fp'), 'https://developers.facebook.com/apps/' ),
+					sprintf( __('You can get the rest of the information from the application on the <a target="_blank" href="%s">Facebook Application List</a> page.', 'fp', 'la-social'), 'https://developers.facebook.com/apps/' ),
 				'</li>',
 				'<li>',
-					__('Select the application you want, then copy and paste the information from there.', 'fp' ),
+					__('Select the application you want, then copy and paste the information from there.', 'fp', 'la-social' ),
 				'</li>',
 			'</ol>';
 		}
@@ -149,7 +149,7 @@ class FP_Social extends LA_Social {
 
 	function oauth_start() {
 		if( !$this->required_app_options_are_set() ) {
-			wp_die( __('OAuth is misconfigured.') );
+			wp_die( __('OAuth is misconfigured.', 'la-social') );
 		}
 
 		$this->setup_session();
@@ -161,14 +161,14 @@ class FP_Social extends LA_Social {
 				$session = $helper->getSessionFromRedirect();
 			} catch(FacebookRequestException $ex) {
 				// When Facebook returns an error
-				$this->oauth_error( '<b>' . __('Facebook Error.') . "</b>\n" . $ex->getResponse()['error']['message'], $ex );
+				$this->oauth_error( '<b>' . __('Facebook Error.', 'la-social') . "</b>\n" . $ex->getResponse()['error']['message'], $ex );
 			} catch(\Exception $ex) {
 				// When validation fails or other local issues
-				$this->oauth_error( __('Unknown Error.'), $ex );
+				$this->oauth_error( __('Unknown Error.', 'la-social'), $ex );
 			}
 
 			if( !$session ) {
-				$this->oauth_error( __('Unknown Session Error.') );
+				$this->oauth_error( __('Unknown Session Error.', 'la-social') );
 			}
 
 			$_SESSION['fb-connected'] = true;
@@ -198,7 +198,7 @@ class FP_Social extends LA_Social {
 			exit;
 
 		} elseif( !isset( $_GET['location'] ) && !isset( $_GET['action'] ) ) {
-			$this->oauth_error( __('Error: request has not been understood. Please go back and try again.') );
+			$this->oauth_error( __('Error: request has not been understood. Please go back and try again.', 'la-social') );
 		}
 
 		if( isset( $_GET['return'] ) ) {

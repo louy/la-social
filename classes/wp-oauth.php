@@ -32,7 +32,7 @@ function oauth_template_redirect() {
 
 		// Nothing happened!?
 		do_action('wp_oauth_unknown_site');
-		wp_die( __('OAuth site not recognized!') );
+		wp_die( __('OAuth site not recognized!', 'la-social') );
 	}
 }
 

@@ -173,25 +173,25 @@ abstract class LA_Social {
 	function admin_menu() {
 		add_options_page($this->name(), $this->name(), 'manage_options', $this->prefix(), array( $this, 'options_page' ) );
 		if( (! $this->is_active_for_network ) && $this->user_can_edit_app_options() ) {
-			add_submenu_page( 'options-general.php', sprintf( __('%s App'), $this->name() ), sprintf( __('%s App'), $this->name() ), 'manage_options', $this->prefix() . 'app', array( $this, 'app_options_page' ) );
+			add_submenu_page( 'options-general.php', sprintf( __('%s App', 'la-social'), $this->name() ), sprintf( __('%s App', 'la-social'), $this->name() ), 'manage_options', $this->prefix() . 'app', array( $this, 'app_options_page' ) );
 		}
 	}
 	function network_admin_menu() {
 		if( $this->is_active_for_network && $this->user_can_edit_app_options() ) {
-			add_submenu_page('settings.php', sprintf( __('%s App'), $this->name() ), sprintf( __('%s App'), $this->name() ), 'manage_options', $this->prefix() . 'app', array( $this, 'app_options_page' ) );
+			add_submenu_page('settings.php', sprintf( __('%s App', 'la-social'), $this->name() ), sprintf( __('%s App', 'la-social'), $this->name() ), 'manage_options', $this->prefix() . 'app', array( $this, 'app_options_page' ) );
 		}
 	}
 
 	function admin_init() {
 		register_setting( $this->prefix() . '_options', $this->prefix() . '_options', array( $this, 'sanitize_options' ) );
-		$this->register_settings( sprintf( __('%s Settings'), $this->name() ), 'options' );
+		$this->register_settings( sprintf( __('%s Settings', 'la-social'), $this->name() ), 'options' );
 
 		if( $this->app_options_defined() ) {
 			return;
 		}
 
 		register_setting( $this->prefix() . '_app_options', $this->prefix() . '_app_options', array( $this, 'sanitize_app_options' ) );
-		$this->register_settings( sprintf( __('%s App Settings'), $this->name() ), 'app_options' );
+		$this->register_settings( sprintf( __('%s App Settings', 'la-social'), $this->name() ), 'app_options' );
 
         add_filter('pre_update_option_' . $this->prefix() . '_app_options', array( $this, 'pre_update_app_options' ), 10, 2 );
 	}
@@ -252,7 +252,7 @@ abstract class LA_Social {
 		<!-- Create a header in the default WordPress 'wrap' container -->
 		<div class="wrap">
 
-			<h2><?php printf( __('%s App'), $this->name() ); ?></h2>
+			<h2><?php printf( __('%s App', 'la-social'), $this->name() ); ?></h2>
 
 			<form method="post" action="options.php"><?php
 
@@ -294,13 +294,13 @@ abstract class LA_Social {
 			$option_name = $args['options_group'] . '[' . $option_name . ']';
 		}
 
-		$required = $args['required'] ? __('(required)', 'fp') : '';
+		$required = $args['required'] ? __('(required)', 'fp', 'la-social') : '';
 
 		if( $args['constant'] && defined($args['constant']) ) {
 			$args['type'] = 'hidden';
 			$required = '';
 
-			_e( 'Already defined in <code>wp-config.php</code>.' );
+			_e( 'Already defined in <code>wp-config.php</code>.', 'la-social' );
 		}
 
 		$class = $args['type'] === 'text' ? ' class="regular-text code"' : '';
@@ -324,12 +324,12 @@ abstract class LA_Social {
 	function plugin_action_links($links) {
 		$links[] = sprintf( '<a href="%1$s">%2$s</a>',
 			admin_url('options-general.php?page=' . $this->prefix() ),
-			esc_html( __('Settings') ) );
+			esc_html( __('Settings', 'la-social') ) );
 
 		if( !$this->app_options_defined() ) {
 			$links[] = sprintf( '<a href="%1$s">%2$s</a>',
 				admin_url('options-general.php?page=' . $this->prefix() . 'app' ),
-				esc_html( __('App Settings') ) );
+				esc_html( __('App Settings', 'la-social') ) );
 		}
 
 		return $links;
@@ -344,7 +344,7 @@ abstract class LA_Social {
 		if( !$this->required_app_options_are_set() && $this->user_can_edit_app_options() ) {
 			printf( '<div class="error"><p>%s</p></div>',
 				sprintf(
-					__('%s needs to be configured on its <a href="%s">app settings</a> page.'),
+					__('%s needs to be configured on its <a href="%s">app settings</a> page.', 'la-social'),
 					$this->name(),
 					admin_url('options-general.php?page=' . $this->prefix() . 'app' )
 				)
@@ -365,7 +365,7 @@ abstract class LA_Social {
 			'<a href="%1$s" title="%2$s">%2$s</a>', $args );
 
 		return apply_filters( $this->prefix() . '_connect_button',
-			sprintf( $template, esc_attr( oauth_link( $this->api_slug(), $args ) ), esc_attr( sprintf( __('Sign in with %s'), $this->api_name() ) ) ),
+			sprintf( $template, esc_attr( oauth_link( $this->api_slug(), $args ) ), esc_attr( sprintf( __('Sign in with %s', 'la-social'), $this->api_name() ) ) ),
 			$action, $args );
 	}
 

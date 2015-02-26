@@ -1,0 +1,356 @@
+# Copyright (C) 2015 Louy Alakkad
+# This file is distributed under the same license as the LA Social package.
+msgid ""
+msgstr ""
+"Project-Id-Version: LA Social 1.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/la-social\n"
+"POT-Creation-Date: 2015-02-26 22:19:19+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n 0.4.9\n"
+
+#: classes/la-social-comments.php:43
+msgid ""
+"%s Comment function doesn't work with sites that require registration to "
+"comment."
+msgstr ""
+
+#: classes/la-social-comments.php:49
+msgid "Comments"
+msgstr ""
+
+#: classes/la-social-comments.php:54
+msgid "Allow %s users to comment"
+msgstr ""
+
+#: classes/la-social-comments.php:70
+msgid "Allow %s users to comment with their accounts."
+msgstr ""
+
+#: classes/la-social-comments.php:90
+msgid "Hi %s!"
+msgstr ""
+
+#: classes/la-social-comments.php:91
+msgid "You are connected with your %s account."
+msgstr ""
+
+#: classes/la-social-comments.php:92
+msgid "Logout"
+msgstr ""
+
+#: classes/la-social.php:176 classes/la-social.php:181
+#: classes/la-social.php:255
+msgid "%s App"
+msgstr ""
+
+#: classes/la-social.php:187
+msgid "%s Settings"
+msgstr ""
+
+#: classes/la-social.php:194
+msgid "%s App Settings"
+msgstr ""
+
+#: classes/la-social.php:297
+msgid "(required)"
+msgstr ""
+
+#: classes/la-social.php:303
+msgid "Already defined in <code>wp-config.php</code>."
+msgstr ""
+
+#: classes/la-social.php:327
+msgid "Settings"
+msgstr ""
+
+#: classes/la-social.php:332
+msgid "App Settings"
+msgstr ""
+
+#: classes/la-social.php:347
+msgid "%s needs to be configured on its <a href=\"%s\">app settings</a> page."
+msgstr ""
+
+#: classes/la-social.php:368
+msgid "Sign in with %s"
+msgstr ""
+
+#: classes/wp-oauth.php:35
+msgid "OAuth site not recognized!"
+msgstr ""
+
+#: fp-social.php:24
+msgid "FacePress"
+msgstr ""
+
+#: fp-social.php:27
+msgid "Facebook"
+msgstr ""
+
+#: fp-social.php:53
+msgid ""
+"Some sites use Fan Pages on Facebook to connect with their users. The "
+"Application wall acts as a  Fan Page in all respects, however some sites "
+"have been using Fan Pages previously, and already have communities and "
+"content built around them. Facebook offers no way to migrate these, so the "
+"option to use an existing Fan Page is offered for people with this "
+"situation. Note that this doesn&#39;t <em>replace</em> the application, as "
+"that is not optional. However, you can use a Fan Page for specific parts of "
+"the FacePress plugin, such as the Fan Box, the Publisher, and the Chicklet."
+msgstr ""
+
+#: fp-social.php:56
+msgid ""
+"If you have a <a href=\"http://www.facebook.com/pages/manage/\">Fan "
+"Page</a> that you want to use for your site, enter the ID of the page here. "
+"Most users should leave this blank."
+msgstr ""
+
+#: fp-social.php:61
+msgid "Facebook App ID"
+msgstr ""
+
+#: fp-social.php:68
+msgid "Facebook App Secret"
+msgstr ""
+
+#: fp-social.php:74
+msgid "Facebook Fan Page ID"
+msgstr ""
+
+#: fp-social.php:92
+msgid ""
+"To connect your site to Facebook, you will need a Facebook Application. If "
+"you have already created one, please insert your Application ID and "
+"Application Secret below."
+msgstr ""
+
+#: fp-social.php:95
+msgid "Can't find your ID?"
+msgstr ""
+
+#: fp-social.php:99
+msgid ""
+"Get a list of your applications from here: <a target=\"_blank\" "
+"href=\"%s\">Facebook Application List</a>"
+msgstr ""
+
+#: fp-social.php:102
+msgid ""
+"Select the application you want, then copy and paste the Application ID and "
+"the Application Secret from there."
+msgstr ""
+
+#: fp-social.php:106 tp-social.php:84
+msgid "Haven't created an application yet?"
+msgstr ""
+
+#: fp-social.php:108 tp-social.php:86
+msgid "Don't worry, it's easy!"
+msgstr ""
+
+#: fp-social.php:112
+msgid ""
+"Go to this link to create your application: <a target=\"_blank\" "
+"href=\"%s\">Facebook Connect Setup</a>"
+msgstr ""
+
+#: fp-social.php:115
+msgid ""
+"When it tells you to \"Upload a file\" on step 2, just hit the \"Upload "
+"Later\" button. This plugin takes care of that part for you!"
+msgstr ""
+
+#: fp-social.php:118
+msgid ""
+"On the final screen, there will be an application info box. Copy and paste "
+"that information into here."
+msgstr ""
+
+#: fp-social.php:121
+msgid ""
+"You can get the rest of the information from the application on the <a "
+"target=\"_blank\" href=\"%s\">Facebook Application List</a> page."
+msgstr ""
+
+#: fp-social.php:124
+msgid ""
+"Select the application you want, then copy and paste the information from "
+"there."
+msgstr ""
+
+#: fp-social.php:152 gp-social.php:116 tp-social.php:141
+msgid "OAuth is misconfigured."
+msgstr ""
+
+#: fp-social.php:164
+msgid "Facebook Error."
+msgstr ""
+
+#: fp-social.php:167
+msgid "Unknown Error."
+msgstr ""
+
+#: fp-social.php:171
+msgid "Unknown Session Error."
+msgstr ""
+
+#: fp-social.php:201 gp-social.php:164 tp-social.php:193
+msgid "Error: request has not been understood. Please go back and try again."
+msgstr ""
+
+#: gp-social.php:15
+msgid "GeePress"
+msgstr ""
+
+#: gp-social.php:18
+msgid "Google+"
+msgstr ""
+
+#: gp-social.php:38
+msgid "Google Client ID"
+msgstr ""
+
+#: gp-social.php:45
+msgid "Google Client Secret"
+msgstr ""
+
+#: gp-social.php:56
+msgid ""
+"To connect your site to Google, you will need a Google Application. If you "
+"have already created one, please insert your Client ID and Client Secret "
+"below."
+msgstr ""
+
+#: gp-social.php:57
+msgid "Can&#39;t find your keys?"
+msgstr ""
+
+#: gp-social.php:59
+msgid ""
+"Get a list of your applications from here: <a target=\"_blank\" "
+"href=\"https://code.google.com/apis/console\">Google APIs Console</a>"
+msgstr ""
+
+#: gp-social.php:60
+msgid ""
+"Select the application (project) you want, then copy and paste the Client "
+"ID and Client Secret from the API Access page there."
+msgstr ""
+
+#: gp-social.php:63
+msgid ""
+"<strong>Haven&#39;t created an application yet?</strong> Don&#39;t worry, "
+"it&#39;s easy!"
+msgstr ""
+
+#: gp-social.php:65
+msgid ""
+"Go to this link to create your application: <a target=\"_blank\" "
+"href=\"https://code.google.com/apis/console\">Google APIs Console</a>, then "
+"create a new project."
+msgstr ""
+
+#: gp-social.php:66
+msgid "Go to API Access tab and click on \"Create an OAuth 2.0 client ID...\""
+msgstr ""
+
+#: gp-social.php:68 tp-social.php:93
+msgid "Important Settings:"
+msgstr ""
+
+#: gp-social.php:69
+msgid "Application Type must be set to \"Web application\"."
+msgstr ""
+
+#: gp-social.php:70
+msgid "Site must be set to <code>%s</code>."
+msgstr ""
+
+#: gp-social.php:74 tp-social.php:99
+msgid "The other application fields can be set up any way you like."
+msgstr ""
+
+#: gp-social.php:76
+msgid ""
+"After creating the application, copy and paste the \"Client ID\" and "
+"\"Client secret\" from the API Access page."
+msgstr ""
+
+#: tp-social.php:20
+msgid "TweetPress"
+msgstr ""
+
+#: tp-social.php:23
+msgid "Twitter"
+msgstr ""
+
+#: tp-social.php:44
+msgid "Twitter Consumer Key"
+msgstr ""
+
+#: tp-social.php:51
+msgid "Twitter Consumer Secret"
+msgstr ""
+
+#: tp-social.php:70
+msgid ""
+"To connect your site to Twitter, you will need a Twitter Application. If "
+"you have already created one, please insert your Consumer Key and Consumer "
+"Secret below."
+msgstr ""
+
+#: tp-social.php:73
+msgid "Can't find your key?"
+msgstr ""
+
+#: tp-social.php:77
+msgid ""
+"Get a list of your applications from here: <a target=\"_blank\" "
+"href=\"%s\">Twitter Applications List</a>"
+msgstr ""
+
+#: tp-social.php:80
+msgid ""
+"Select the application you want, then copy and paste the Consumer Key and "
+"Consumer Secret from there."
+msgstr ""
+
+#: tp-social.php:90
+msgid ""
+"Go to this link to create your application: <a target=\"_blank\" "
+"href=\"%s\">Twitter: Register an Application</a>"
+msgstr ""
+
+#: tp-social.php:96
+msgid "Default Access type must be set to \"Read and Write\"."
+msgstr ""
+
+#: tp-social.php:102
+msgid ""
+"After creating the application, copy and paste the Consumer Key and "
+"Consumer Secret from the Application Details page."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "LA Social"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Integrates your WordPress blog with social networks like Facebook, Twitter "
+"and Google+."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Louy Alakkad"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://l0uy.com/"
+msgstr ""
