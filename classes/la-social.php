@@ -393,6 +393,7 @@ abstract class LA_Social {
 	}
 
 	function get_social_user() {
+		// @implement
 		return false;
 		/*
 		return array(
@@ -408,21 +409,10 @@ abstract class LA_Social {
 	function get_avatar( $userid, $size = '96', $default = '', $alt = false, $url_only = false ) {
 		$size = intval( $size );
 
-		switch( true ) { // size
-			case $size <= 50:
-				$imgsize = 'small';
-				break;
-			case $size <= 100:
-				$imgsize = 'medium';
-				break;
-			default:
-				$imgsize = 'large';
-				break;
-		}
 
 		$api = $this->api_slug();
 
-		$src = "http://avatars.io/{$api}/{$userid}?size={$imgsize}";
+		$src = "http://res.cloudinary.com/demo/image/{$api}/w_{$size},h_{$size},c_scale/{$userid}.jpg";
 		$src = apply_filters( $this->prefix() . '_get_avatar_src', $src, $userid, $size, $default );
 
 		if( $url_only ) {
