@@ -153,7 +153,7 @@ class FP_Social extends LA_Social {
 		}
 
 		$this->setup_session();
-		$helper = new FacebookRedirectLoginHelper( oauth_link('facebook') );
+		$helper = new FacebookRedirectLoginHelper( oauth_link($this->api_slug()) );
 
 		if( isset( $_GET['code'] ) ) {
 
@@ -207,7 +207,7 @@ class FP_Social extends LA_Social {
 		if( isset( $_GET['action'] ) ) {
 			$_SESSION[ $this->prefix() . '_callback_action' ] = $_GET['action'];
 		}
-	
+
 		$_SESSION['comment_user_service'] = $this->api_slug();
 
 		$scope = array();
@@ -244,7 +244,7 @@ class FP_Social extends LA_Social {
 				->execute()->getGraphObject(GraphUser::className());
 
 			$image_size = apply_filters('alt_login_image_size', 50);
-				
+
 			return array(
 				'id' => $me->getId(),
 				'name' => $me->getName(),

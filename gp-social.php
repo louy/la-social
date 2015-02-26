@@ -3,16 +3,13 @@ class GP_Social extends LA_Social {
 	function __construct( $file = null ) {
 		parent::__construct($file);
 		$modules[] = new LA_Social_Comments($this);
-
-		add_filter( $this->prefix() . '_comment_avatar', array( $this, 'comment_avatar' ), 10, 6 );
-		add_filter( 'comment_post_redirect', array( $this, 'comment_post_redirect' ) );
 	}
 
 	function prefix() {
 		return 'gp';
 	}
 	function api_slug() {
-		return 'google';
+		return 'gplus';
 	}
 	function name() {
 		return __('GeePress');
@@ -70,7 +67,7 @@ class GP_Social extends LA_Social {
 
 <li><?php _e('Important Settings:', 'gp'); ?><ol>
 <li><?php _e('Application Type must be set to "Web application".', 'gp'); ?></li>
-<li><?php printf(__('Site must be set to <code>%s</code>.', 'gp'), get_bloginfo('url').'/oauth/google/'); ?></li>
+<li><?php printf(__('Site must be set to <code>%s</code>.', 'gp'), oauth_link($this->api_slug())); ?></li>
 </ol>
 </li>
 
@@ -90,8 +87,8 @@ class GP_Social extends LA_Social {
 		return $options;
 	}
 	function sanitize_app_options( $app_options ) {
-		$app_options['client_id'] = preg_replace('/[^a-zA-Z0-9]/', '', $app_options['client_id']);
-		$app_options['client_secret'] = preg_replace('/[^a-zA-Z0-9]/', '', $app_options['client_secret']);
+		$app_options['client_id'] = trim( $app_options['client_id'] );
+		$app_options['client_secret'] = trim( $app_options['client_secret'] );
 
 		return $app_options;
 	}
@@ -108,7 +105,7 @@ class GP_Social extends LA_Social {
 			$instance->setApplicationName(get_bloginfo('name'));
 			$instance->setClientId($this->option('client_id'));
 			$instance->setClientSecret($this->option('client_secret'));
-			$instance->setRedirectUri(get_bloginfo('url').'/oauth/google');
+			$instance->setRedirectUri( oauth_link($this->api_slug()) );
 		}
 		return $instance;
 	}
@@ -119,19 +116,16 @@ class GP_Social extends LA_Social {
 			wp_die( __('OAuth is misconfigured.') );
 		}
 
-		$plus = new Google_PlusService($client);
-		$oauth2 = new Google_Oauth2Service($client);
-		
 		if( isset($_GET['code']) ) {
-			
+
 			$_SESSION['gp-connected'] = true;
-			
+
 			$_SESSION['gp_token'] = $client->getAccessToken();
-			
+
 			if( @$_SESSION['gp_verify'] ) {
 				unset( $_SESSION['gp_verify'] );
 
-				if( $reply = $client->authenticate() ) {
+				if( !( $reply = $client->authenticate($_GET['code']) ) ) {
 					$this->oauth_error( 'Error ', $reply );
 				}
 
@@ -170,6 +164,9 @@ class GP_Social extends LA_Social {
 			$this->oauth_error( __('Error: request has not been understood. Please go back and try again.') );
 		} else {
 
+			$client->addScope(Google_Service_Plus::PLUS_ME);
+			$client->addScope(Google_Service_Plus::USERINFO_EMAIL);
+
 			$auth_url = $client->createAuthUrl();
 
 			$_SESSION['gp_verify'] = true;
@@ -205,13 +202,20 @@ class GP_Social extends LA_Social {
 			return false;
 		}
 
-		$plus = new Google_PlusService($client);
-		$oauth2 = new Google_Oauth2Service($client);
-		
+		$client->addScope(Google_Service_Plus::PLUS_ME);
+		$client->addScope(Google_Service_Plus::USERINFO_EMAIL);
+
+		$plus = new Google_Service_Plus($client);
+		$oauth2 = new Google_Service_Oauth2($client);
+
 		$client->setAccessToken($_SESSION['gp_token']);
-	
+
 		$profile = $plus->people->get('me');
 		$user = $oauth2->userinfo->get();
+
+		if( !$profile || !$user ) {
+			return false;
+		}
 
 		return array(
 			'id' => $profile['id'],
@@ -221,18 +225,5 @@ class GP_Social extends LA_Social {
 			'url' => $profile['url'],
 			'image' => $profile['image']['url'],
 		);
-	}
-
-	function comment_avatar( $avatar, $userid, $id_or_email, $size, $default, $alt ) {
-		$screen_name = explode( '@', $id_or_email->comment_author_email );
-		return $this->get_avatar( $screen_name[0], $size, $default, $alt );
-	}
-
-	/* unset comment email cookie */
-	function comment_post_redirect( $location ) {
-		if( @$_SESSION['comment_user_service'] === $this->api_slug() ) {
-			setcookie('comment_author_email_' . COOKIEHASH, '', 0, COOKIEPATH, COOKIE_DOMAIN);
-		}
-		return $location;
 	}
 }
