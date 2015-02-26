@@ -41,7 +41,7 @@ function oauth_link($site,$args=array()){
 
 	$link = get_bloginfo('url');
 	if( $wp_rewrite->using_permalinks() ) {
-		$link .= '/oauth/' . $site;
+		$link .= '/oauth/' . $site . '/';
 	} else {
 		$link = add_query_arg(array(
 			'oauth' => $site
