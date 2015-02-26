@@ -1,9 +1,4 @@
 <?php
-defined('FACEBOOK_SDK_V4_SRC_DIR') ||
-	define( 'FACEBOOK_SDK_V4_SRC_DIR', __DIR__ . '/lib/Facebook/' );
-require_once __DIR__ . '/la-social/la-social.php';
-require_once __DIR__ . '/lib/autoload.php';
-
 use Facebook\FacebookSession;
 use Facebook\FacebookRequest;
 use Facebook\FacebookRequestException;
@@ -15,6 +10,8 @@ class FP_Social extends LA_Social {
 	function __construct( $file = null ) {
 		parent::__construct($file);
 		$modules[] = new LA_Social_Comments($this);
+
+		add_filter( $this->prefix() . '_get_avatar_src', array($this, 'get_avatar_src'), 10, 4 );
 	}
 
 	function prefix() {
@@ -35,7 +32,7 @@ class FP_Social extends LA_Social {
 			'FACEBOOK_APP_ID'        => 'appId',
 			'FACEBOOK_APP_SECRET'    => 'secret',
 			'FACEBOOK_FANPAGE'       => 'fanpage',
-			'FACEBOOK_DISABLE_LOGIN' => 'disable_login',
+			// 'FACEBOOK_DISABLE_LOGIN' => 'disable_login',
 		);
 	}
 
@@ -78,13 +75,13 @@ class FP_Social extends LA_Social {
 			'constant' => 'FACEBOOK_FANPAGE',
 			'help_text' => $fanpage_help,
 		);
-		$fields[] = array(
-			'name' => 'disable_login',
-			'label' => __('Disable Facebook login', 'fp'),
-			'required' => true,
-			'constant' => 'FACEBOOK_DISABLE_LOGIN',
-			'type' => 'checkbox',
-		);
+		// $fields[] = array(
+		// 	'name' => 'disable_login',
+		// 	'label' => __('Disable Facebook login', 'fp'),
+		// 	'required' => true,
+		// 	'constant' => 'FACEBOOK_DISABLE_LOGIN',
+		// 	'type' => 'checkbox',
+		// );
 
 		return parent::app_options_section_fields($fields);
 	}
@@ -131,7 +128,7 @@ class FP_Social extends LA_Social {
 	}
 
 	function sanitize_options( $options ) {
-		unset($options['appId'], $options['secret'], $options['fanpage'], $options['disable_login']);
+		unset($options['appId'], $options['secret'], $options['fanpage']/*, $options['disable_login']*/);
 
 		$options = apply_filters( $this->prefix() . '_sanitize_options', $options );
 
@@ -140,7 +137,7 @@ class FP_Social extends LA_Social {
 	function sanitize_app_options( $app_options ) {
 		$app_options['appId'] = preg_replace('/[^a-zA-Z0-9]/', '', $app_options['appId']);
 		$app_options['secret'] = preg_replace('/[^a-zA-Z0-9]/', '', $app_options['secret']);
-		$app_options['disable_login'] = isset( $app_options['disable_login'] );
+		// $app_options['disable_login'] = isset( $app_options['disable_login'] );
 		$app_options['fanpage'] = preg_replace('/[^0-9]/', '', $app_options['fanpage']);
 
 		return $app_options;
@@ -246,12 +243,14 @@ class FP_Social extends LA_Social {
 			$me = (new FacebookRequest( $session, 'GET', '/me' ))
 				->execute()->getGraphObject(GraphUser::className());
 
+			$image_size = apply_filters('alt_login_image_size', 50);
+				
 			return array(
 				'id' => $me->getId(),
 				'name' => $me->getName(),
 				'email' => $me->getEmail(),
 				'url' => $me->getLink(),
-				'image' => $this->get_avatar( $me->getId(), 100, '', false, true ),
+				'image' => $this->get_avatar( $me->getId(), $image_size, '', false, true ),
 			);
 		} catch( \Exception $ex ) {
 			if( WP_DEBUG ) {
@@ -259,6 +258,11 @@ class FP_Social extends LA_Social {
 			}
 		}
 		return false;
+	}
+
+	function get_avatar_src( $src, $userid, $size = '96', $default = '' ) {
+		$src = "https://graph.facebook.com/{$userid}/picture?width={$size}";
+		return $src;
 	}
 
 }

@@ -1,7 +1,5 @@
 <?php
-if( !class_exists('LA_Social') ) {
-	require_once __DIR__ . '/la-social/la-social.php';
-}
+use Codebird\Codebird;
 
 class TP_Social extends LA_Social {
 	function __construct( $file = null ) {
@@ -29,7 +27,7 @@ class TP_Social extends LA_Social {
 		return  array(
 			'TWITTER_CONSUMER_KEY'    => 'consumer_key',
 			'TWITTER_CONSUMER_SECRET' => 'consumer_secret',
-			'TWITTER_DISABLE_LOGIN'   => 'disable_login',
+			// 'TWITTER_DISABLE_LOGIN'   => 'disable_login',
 		);
 	}
 
@@ -55,13 +53,13 @@ class TP_Social extends LA_Social {
 			'constant' => 'TWITTER_CONSUMER_SECRET',
 		);
 
-		$fields[] = array(
-			'name' => 'disable_login',
-			'label' => __('Disable Twitter login', 'tp'),
-			'required' => true,
-			'constant' => 'TWITTER_DISABLE_LOGIN',
-			'type' => 'checkbox',
-		);
+		// $fields[] = array(
+		// 	'name' => 'disable_login',
+		// 	'label' => __('Disable Twitter login', 'tp'),
+		// 	'required' => true,
+		// 	'constant' => 'TWITTER_DISABLE_LOGIN',
+		// 	'type' => 'checkbox',
+		// );
 
 		return parent::app_options_section_fields($fields);
 	}
@@ -108,7 +106,7 @@ class TP_Social extends LA_Social {
 	}
 
 	function sanitize_options( $options ) {
-		unset($options['consumer_key'], $options['consumer_secret'], $options['disable_login']);
+		unset($options['consumer_key'], $options['consumer_secret']/*, $options['disable_login']*/);
 
 		$options = apply_filters( $this->prefix() . '_sanitize_options', $options );
 
@@ -117,7 +115,7 @@ class TP_Social extends LA_Social {
 	function sanitize_app_options( $app_options ) {
 		$app_options['consumer_key'] = preg_replace('/[^a-zA-Z0-9]/', '', $app_options['consumer_key']);
 		$app_options['consumer_secret'] = preg_replace('/[^a-zA-Z0-9]/', '', $app_options['consumer_secret']);
-		$app_options['disable_login'] = isset( $app_options['disable_login'] );
+		// $app_options['disable_login'] = isset( $app_options['disable_login'] );
 
 		return $app_options;
 	}
@@ -128,10 +126,6 @@ class TP_Social extends LA_Social {
 
 			if( !$this->required_app_options_are_set() ) {
 				return false;
-			}
-
-			if( !class_exists('\Codebird\Codebird') ) {
-				require_once __DIR__ . '/lib/codebird.php';
 			}
 
 			$instance = \Codebird\Codebird::getInstance();

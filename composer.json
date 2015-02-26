@@ -1,0 +1,7 @@
+{
+    "require": {
+        "facebook/php-sdk-v4": "4.0.*",
+        "google/apiclient": "1.1.*",
+	"jublonet/codebird-php": "2.6.*"
+    }
+}
