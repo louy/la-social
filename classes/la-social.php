@@ -2,6 +2,7 @@
 require_once dirname(__FILE__) . '/wp-oauth.php';
 require_once dirname(__FILE__) . '/la-social-module.php';
 require_once dirname(__FILE__) . '/la-social-comments.php';
+require_once dirname(__FILE__) . '/la-social-photos.php';
 
 if( !session_id() ) {
 	session_start();
@@ -406,13 +407,30 @@ abstract class LA_Social {
 		*/
 	}
 
+	function get_photo_for_user($id) {
+		// @implement
+		return false;
+	}
+
 	function get_avatar( $userid, $size = '96', $default = '', $alt = false, $url_only = false ) {
 		$size = intval( $size );
 
+		// switch( true ) { // size
+		// 	case $size <= 50:
+		// 		$imgsize = 'small';
+		// 		break;
+		// 	case $size <= 100:
+		// 		$imgsize = 'medium';
+		// 		break;
+		// 	default:
+		// 		$imgsize = 'large';
+		// 		break;
+		// }
 
 		$api = $this->api_slug();
 
 		$src = "http://res.cloudinary.com/demo/image/{$api}/w_{$size},h_{$size},c_scale/{$userid}.jpg";
+		// $src = "http://avatars.io/{$api}/{$userid}?size={$imgsize}";
 		$src = apply_filters( $this->prefix() . '_get_avatar_src', $src, $userid, $size, $default );
 
 		if( $url_only ) {
