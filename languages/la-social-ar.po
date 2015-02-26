@@ -8,7 +8,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-02-27 00:38+0200\n"
+"PO-Revision-Date: 2015-02-27 00:54+0200\n"
 "X-Generator: Poedit 1.7.4\n"
 "Last-Translator: Louy Alakkad <louy08@gmail.com>\n"
 "Language-Team: \n"
@@ -28,7 +28,7 @@ msgstr "التعليقات"
 
 #: classes/la-social-comments.php:54
 msgid "Allow %s users to comment"
-msgstr "تمكين مستخدمي ‪%‬s من التعليق"
+msgstr "‎تمكين مستخدمي ‪%s من التعليق"
 
 #: classes/la-social-comments.php:70
 msgid "Allow %s users to comment with their accounts."
@@ -36,11 +36,11 @@ msgstr "تمكين مستخدمي %s من التعليق باستخدام حسا
 
 #: classes/la-social-comments.php:90
 msgid "Hi %s!"
-msgstr "مرحباً ‪%‬s!"
+msgstr "‎مرحباً ‪%s!"
 
 #: classes/la-social-comments.php:91
 msgid "You are connected with your %s account."
-msgstr "أنت الآن مُتّصل بحسابك على %s."
+msgstr "‎أنت الآن مُتّصل بحسابك على %s."
 
 #: classes/la-social-comments.php:92
 msgid "Logout"
@@ -49,15 +49,15 @@ msgstr "تسجيل الخروج"
 #: classes/la-social.php:176 classes/la-social.php:181
 #: classes/la-social.php:255
 msgid "%s App"
-msgstr "تطبيق ‪%‬s"
+msgstr "‎تطبيق ‪%s"
 
 #: classes/la-social.php:187
 msgid "%s Settings"
-msgstr "إعدادات ‪%‬s"
+msgstr "‎إعدادات ‪%s"
 
 #: classes/la-social.php:194
 msgid "%s App Settings"
-msgstr "إعدادات تطبيق ‪%‬s"
+msgstr "‎إعدادات تطبيق ‪%s"
 
 #: classes/la-social.php:297
 msgid "(required)"
@@ -81,7 +81,7 @@ msgstr ""
 
 #: classes/la-social.php:368
 msgid "Sign in with %s"
-msgstr "تسجيل الدخول باستخدام ‪%‬s."
+msgstr "‎تسجيل الدخول باستخدام ‪%s."
 
 #: classes/wp-oauth.php:35
 msgid "OAuth site not recognized!"
