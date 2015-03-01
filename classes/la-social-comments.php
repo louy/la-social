@@ -76,6 +76,10 @@ class LA_Social_Comments extends LA_Social_Module {
 	}
 
 	function ajax_get_display() {
+		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");
+
 		if( @$_SESSION['comment_user_service'] !== $this->api_slug() ) {
 			return;
 		}
@@ -106,13 +110,16 @@ class LA_Social_Comments extends LA_Social_Module {
 		}
 		define('LA_SOCIAL_COMMENTS_SCRIPT_SHOW', true);
 
+		$ajax_url = preg_replace( '/^https?\:/', '', admin_url("admin-ajax.php") );
 		?>
+		<script>
+		/* @nominify */var ajax_url = '<?php echo $ajax_url; ?>';
+		</script>
 		<script>
 			jQuery(function($) {
 				if( !$('#alt-comment-login').size() ) {
 					return;
 				}
-				var ajax_url = '<?php echo admin_url("admin-ajax.php"); ?>';
 				var data = { action: '<?php echo $this->ajax_hook(); ?>' };
 				$.post(ajax_url, data, function(response) {
 					if (response != '0') {
