@@ -294,7 +294,7 @@ abstract class LA_Social {
 			$option_name = $args['options_group'] . '[' . $option_name . ']';
 		}
 
-		$required = $args['required'] ? __('(required)', 'fp', 'la-social') : '';
+		$required = $args['required'] ? __('(required)', 'la-social') : '';
 
 		if( $args['constant'] && defined($args['constant']) ) {
 			$args['type'] = 'hidden';
