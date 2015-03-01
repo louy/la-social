@@ -7,6 +7,7 @@ Version: 1.0
 Author URI: http://l0uy.com/
 Text Domain: la-social
 Domain Path: /languages
+GitHub Plugin URI: louy/la-social
 */
 
 /*
