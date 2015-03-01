@@ -22,6 +22,7 @@ class GP_Social extends LA_Social {
 		return  array(
 			'GOOGLE_CLIENT_ID'     => 'client_id',
 			'GOOGLE_CLIENT_SECRET' => 'client_secret',
+			'GOOGLE_API_KEY'       => 'api_key',
 		);
 	}
 
@@ -35,16 +36,23 @@ class GP_Social extends LA_Social {
 	function app_options_section_fields( $fields = array() ) {
 		$fields[] = array(
 			'name' => 'client_id',
-			'label' => __('Google Client ID', 'gp', 'la-social'),
+			'label' => __('Google Client ID', 'la-social'),
 			'required' => true,
 			'constant' => 'GOOGLE_CLIENT_ID',
 		);
 
 		$fields[] = array(
 			'name' => 'client_secret',
-			'label' => __('Google Client Secret', 'gp', 'la-social'),
+			'label' => __('Google Client Secret', 'la-social'),
 			'required' => true,
 			'constant' => 'GOOGLE_CLIENT_SECRET',
+		);
+
+		$fields[] = array(
+			'name' => 'api_key',
+			'label' => __('Google API Key', 'la-social'),
+			'required' => true,
+			'constant' => 'GOOGLE_API_KEY',
 		);
 
 		return parent::app_options_section_fields($fields);
@@ -53,34 +61,33 @@ class GP_Social extends LA_Social {
 	function app_options_section_callback() {
 		if( !$this->required_app_options_are_set() ) {
 			?>
-<p><?php _e('To connect your site to Google, you will need a Google Application. If you have already created one, please insert your Client ID and Client Secret below.', 'gp', 'la-social'); ?></p>
-<p><strong><?php _e('Can&#39;t find your keys?', 'gp', 'la-social'); ?></strong></p>
+<p><?php _e('To connect your site to Google, you will need a Google Application. If you have already created one, please insert your Client ID and Client Secret below.', 'la-social'); ?></p>
+<p><strong><?php _e('Can&#39;t find your keys?', 'la-social'); ?></strong></p>
 <ol>
-<li><?php _e('Get a list of your applications from here: <a target="_blank" href="https://code.google.com/apis/console">Google APIs Console</a>', 'gp', 'la-social'); ?></li>
-<li><?php _e('Select the application (project) you want, then copy and paste the Client ID and Client Secret from the API Access page there.', 'gp', 'la-social'); ?></li>
+<li><?php _e('Get a list of your applications from here: <a target="_blank" href="https://code.google.com/apis/console">Google APIs Console</a>', 'la-social'); ?></li>
+<li><?php _e('Select the application (project) you want, then copy and paste the Client ID and Client Secret from the API Access page there.', 'la-social'); ?></li>
 </ol>
 
-<p><?php _e('<strong>Haven&#39;t created an application yet?</strong> Don&#39;t worry, it&#39;s easy!', 'gp', 'la-social'); ?></p>
+<p><?php _e('<strong>Haven&#39;t created an application yet?</strong> Don&#39;t worry, it&#39;s easy!', 'la-social'); ?></p>
 <ol>
-<li><?php _e('Go to this link to create your application: <a target="_blank" href="https://code.google.com/apis/console">Google APIs Console</a>, then create a new project.', 'gp', 'la-social'); ?></li>
-<li><?php _e('Go to API Access tab and click on "Create an OAuth 2.0 client ID..."', 'gp', 'la-social'); ?></li>
+<li><?php _e('Go to this link to create your application: <a target="_blank" href="https://code.google.com/apis/console">Google APIs Console</a>, then create a new project.', 'la-social'); ?></li>
+<li><?php _e('Go to "APIs" tab and activate "Google+ API"', 'la-social'); ?></li>
+<li><?php _e('Go to "Credentials" tab and get your "Client ID", "Client Secret" and "API Key" from there.', 'la-social'); ?></li>
 
-<li><?php _e('Important Settings:', 'gp', 'la-social'); ?><ol>
-<li><?php _e('Application Type must be set to "Web application".', 'gp', 'la-social'); ?></li>
-<li><?php printf(__('Site must be set to <code>%s</code>.', 'gp', 'la-social'), oauth_link($this->api_slug())); ?></li>
+<li><?php _e('Important Settings:', 'la-social'); ?><ol>
+<li><?php _e('Application Type must be set to "Web application".', 'la-social'); ?></li>
+<li><?php printf(__('"Redirect URIs" must be set to <code>%s</code>.', 'la-social'), oauth_link($this->api_slug())); ?></li>
 </ol>
 </li>
 
-<li><?php _e('The other application fields can be set up any way you like.', 'gp', 'la-social'); ?></li>
-
-<li><?php _e('After creating the application, copy and paste the "Client ID" and "Client secret" from the API Access page.', 'gp', 'la-social'); ?></li>
+<li><?php _e('The other application fields can be set up any way you like.', 'la-social'); ?></li>
 </ol>
 <?php
 		}
 	}
 
 	function sanitize_options( $options ) {
-		unset($options['client_id'], $options['client_secret']);
+		unset($options['client_id'], $options['client_secret'], $options['api_key']);
 
 		$options = apply_filters( $this->prefix() . '_sanitize_options', $options );
 
@@ -89,6 +96,7 @@ class GP_Social extends LA_Social {
 	function sanitize_app_options( $app_options ) {
 		$app_options['client_id'] = trim( $app_options['client_id'] );
 		$app_options['client_secret'] = trim( $app_options['client_secret'] );
+		$app_options['api_key'] = trim( $app_options['api_key'] );
 
 		return $app_options;
 	}
