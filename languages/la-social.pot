@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LA Social 1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/la-social\n"
-"POT-Creation-Date: 2015-02-26 22:19:19+00:00\n"
+"POT-Creation-Date: 2015-03-03 17:52:52+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -31,15 +31,15 @@ msgstr ""
 msgid "Allow %s users to comment with their accounts."
 msgstr ""
 
-#: classes/la-social-comments.php:90
+#: classes/la-social-comments.php:94
 msgid "Hi %s!"
 msgstr ""
 
-#: classes/la-social-comments.php:91
+#: classes/la-social-comments.php:95
 msgid "You are connected with your %s account."
 msgstr ""
 
-#: classes/la-social-comments.php:92
+#: classes/la-social-comments.php:96
 msgid "Logout"
 msgstr ""
 
@@ -184,7 +184,7 @@ msgid ""
 "there."
 msgstr ""
 
-#: fp-social.php:152 gp-social.php:116 tp-social.php:141
+#: fp-social.php:152 gp-social.php:124 tp-social.php:141
 msgid "OAuth is misconfigured."
 msgstr ""
 
@@ -200,7 +200,7 @@ msgstr ""
 msgid "Unknown Session Error."
 msgstr ""
 
-#: fp-social.php:201 gp-social.php:164 tp-social.php:193
+#: fp-social.php:201 gp-social.php:172 tp-social.php:193
 msgid "Error: request has not been understood. Please go back and try again."
 msgstr ""
 
@@ -212,74 +212,78 @@ msgstr ""
 msgid "Google+"
 msgstr ""
 
-#: gp-social.php:38
+#: gp-social.php:39
 msgid "Google Client ID"
 msgstr ""
 
-#: gp-social.php:45
+#: gp-social.php:46
 msgid "Google Client Secret"
 msgstr ""
 
-#: gp-social.php:56
+#: gp-social.php:53
+msgid "Google API Key"
+msgstr ""
+
+#: gp-social.php:64
 msgid ""
 "To connect your site to Google, you will need a Google Application. If you "
 "have already created one, please insert your Client ID and Client Secret "
 "below."
 msgstr ""
 
-#: gp-social.php:57
+#: gp-social.php:65
 msgid "Can&#39;t find your keys?"
 msgstr ""
 
-#: gp-social.php:59
+#: gp-social.php:67
 msgid ""
 "Get a list of your applications from here: <a target=\"_blank\" "
 "href=\"https://code.google.com/apis/console\">Google APIs Console</a>"
 msgstr ""
 
-#: gp-social.php:60
+#: gp-social.php:68
 msgid ""
 "Select the application (project) you want, then copy and paste the Client "
 "ID and Client Secret from the API Access page there."
 msgstr ""
 
-#: gp-social.php:63
+#: gp-social.php:71
 msgid ""
 "<strong>Haven&#39;t created an application yet?</strong> Don&#39;t worry, "
 "it&#39;s easy!"
 msgstr ""
 
-#: gp-social.php:65
+#: gp-social.php:73
 msgid ""
 "Go to this link to create your application: <a target=\"_blank\" "
 "href=\"https://code.google.com/apis/console\">Google APIs Console</a>, then "
 "create a new project."
 msgstr ""
 
-#: gp-social.php:66
-msgid "Go to API Access tab and click on \"Create an OAuth 2.0 client ID...\""
+#: gp-social.php:74
+msgid "Go to \"APIs\" tab and activate \"Google+ API\""
 msgstr ""
 
-#: gp-social.php:68 tp-social.php:93
+#: gp-social.php:75
+msgid ""
+"Go to \"Credentials\" tab and get your \"Client ID\", \"Client Secret\" and "
+"\"API Key\" from there."
+msgstr ""
+
+#: gp-social.php:77 tp-social.php:93
 msgid "Important Settings:"
 msgstr ""
 
-#: gp-social.php:69
+#: gp-social.php:78
 msgid "Application Type must be set to \"Web application\"."
 msgstr ""
 
-#: gp-social.php:70
-msgid "Site must be set to <code>%s</code>."
+#: gp-social.php:79
+msgid "\"Redirect URIs\" must be set to <code>%s</code>."
 msgstr ""
 
-#: gp-social.php:74 tp-social.php:99
+#: gp-social.php:83 tp-social.php:99
 msgid "The other application fields can be set up any way you like."
-msgstr ""
-
-#: gp-social.php:76
-msgid ""
-"After creating the application, copy and paste the \"Client ID\" and "
-"\"Client secret\" from the API Access page."
 msgstr ""
 
 #: tp-social.php:20
@@ -339,6 +343,10 @@ msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "LA Social"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "louy/la-social"
 msgstr ""
 
 #. Description of the plugin/theme
