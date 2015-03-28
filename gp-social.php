@@ -124,6 +124,10 @@ class GP_Social extends LA_Social {
 			wp_die( __('OAuth is misconfigured.', 'la-social') );
 		}
 
+		if( !session_id() ) {
+			session_start();
+		}
+
 		if( isset($_GET['code']) ) {
 
 			$_SESSION['gp-connected'] = true;

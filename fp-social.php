@@ -152,6 +152,10 @@ class FP_Social extends LA_Social {
 			wp_die( __('OAuth is misconfigured.', 'la-social') );
 		}
 
+		if( !session_id() ) {
+			session_start();
+		}
+
 		$this->setup_session();
 		$helper = new FacebookRedirectLoginHelper( oauth_link($this->api_slug()) );
 

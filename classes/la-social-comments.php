@@ -80,6 +80,10 @@ class LA_Social_Comments extends LA_Social_Module {
 		header("Cache-Control: post-check=0, pre-check=0", false);
 		header("Pragma: no-cache");
 
+		if( !session_id() ) {
+			session_start();
+		}
+
 		if( @$_SESSION['comment_user_service'] !== $this->api_slug() ) {
 			return;
 		}

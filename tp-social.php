@@ -141,6 +141,10 @@ class TP_Social extends LA_Social {
 			wp_die( __('OAuth is misconfigured.', 'la-social') );
 		}
 
+		if( !session_id() ) {
+			session_start();
+		}
+
 		if( isset($_GET['oauth_token']) ) {
 
 			if( @$_SESSION['tp_oauth_verify'] ) {
