@@ -3,7 +3,7 @@
 Plugin Name: LA Social
 Description: Integrates your WordPress blog with social networks like Facebook, Twitter and Google+.
 Author: Louy Alakkad
-Version: 1.0.1
+Version: 1.0.2
 Author URI: http://l0uy.com/
 Text Domain: la-social
 Domain Path: /languages
@@ -27,7 +27,7 @@ if you want to force the plugin to use some settings, you can add these to your 
 // Load translations
 load_plugin_textdomain( 'la-social', false, dirname( plugin_basename( __FILE__ ) ) . '/po/' );
 
-define( 'LA_SOCIAL_VERSION', '1.0.1' );
+define( 'LA_SOCIAL_VERSION', '1.0.2' );
 define( 'LA_SOCIAL_PHP_VERSION_REQUIRED', '5.4.0' );
 
 function la_social_activate(){

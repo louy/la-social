@@ -3,9 +3,6 @@ require_once dirname(__FILE__) . '/wp-oauth.php';
 require_once dirname(__FILE__) . '/la-social-module.php';
 require_once dirname(__FILE__) . '/la-social-comments.php';
 
-if( !session_id() ) {
-	session_start();
-}
 abstract class LA_Social {
 	// supply your own in child class
 	function prefix() {

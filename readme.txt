@@ -5,7 +5,7 @@ Author URL: http://l0uy.com/
 Tags: facebook, twitter, oauth, login, share, tweet, comment, connect, wpmu, network
 Requires at least: 3.3
 Tested up to: 4.1
-Stable tag: 1.0.0
+Stable tag: 1.0.2
 
 All the tools you need to integrate your WordPress with Facebook and Twitter.
 
@@ -23,7 +23,7 @@ FacePress, is a plugin that allows you to integrate Facebook and your blog very 
 
 == Changelog ==
 
-= 1.0.1 =
+= 1.0.2 =
 * Start session only when required.
 
 = 1.0 =
