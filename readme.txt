@@ -23,6 +23,9 @@ FacePress, is a plugin that allows you to integrate Facebook and your blog very 
 
 == Changelog ==
 
+= 1.0.5 =
+* Merged options pages
+
 = 1.0.4 =
 * SEO Improvements
 * Start session only when required.
