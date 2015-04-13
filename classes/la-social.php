@@ -359,7 +359,7 @@ abstract class LA_Social {
 		$args = apply_filters( $this->prefix() . '_connect_button_args', $args, $this );
 
 		$template = apply_filters( $this->prefix() . '_connect_button_template',
-			'<a href="%1$s" title="%2$s">%2$s</a>', $args, $this );
+			'<a rel="nofollow" href="%1$s" title="%2$s">%2$s</a>', $args, $this );
 
 		return apply_filters( $this->prefix() . '_connect_button',
 			sprintf( $template, esc_attr( oauth_link( $this->api_slug(), $args ) ), esc_attr( sprintf( __('Sign in with %s', 'la-social'), $this->api_name() ) ) ),

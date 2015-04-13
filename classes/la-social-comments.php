@@ -97,7 +97,7 @@ class LA_Social_Comments extends LA_Social_Module {
 					'<img src="', $social_user['image'], '" width="' . $image_size . '" height="' . $image_size . '" class="social-avatar avatar" />',
 					'<h3>', esc_html( sprintf(__('Hi %s!', 'la-social'), $social_user['name'] ) ), '</h3>',
 					'<p>', sprintf( __('You are connected with your %s account.', 'la-social'), $this->parent->api_name() ), ' ',
-						apply_filters( $this->prefix() . '_user_logout','<a href="?' . $this->prefix() . '-logout" class="social-logout">' . __('Logout', 'la-social') . '</a>' ),
+						apply_filters( $this->prefix() . '_user_logout','<a rel="nofollow" href="?' . $this->prefix() . '-logout" class="social-logout">' . __('Logout', 'la-social') . '</a>' ),
 					'</p>',
 				'</div>';
 			exit;

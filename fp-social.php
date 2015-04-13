@@ -197,7 +197,6 @@ class FP_Social extends LA_Social {
 			$return_url[0] = implode(':', $return_url[0]);
 			$return_url = implode('?', $return_url);
 
-			// echo '<p>To complete the OAuth flow follow this URL: <a href="'. $return_url . '">' . $return_url . '</a></p>';
 			wp_redirect( utf8_encode( $return_url ) );
 			exit;
 
