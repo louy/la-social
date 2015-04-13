@@ -5,7 +5,7 @@ Author URL: http://l0uy.com/
 **Tags:** facebook, twitter, oauth, login, share, tweet, comment, connect, wpmu, network  
 **Requires at least:** 3.3  
 **Tested up to:** 4.1  
-**Stable tag:** 1.0.4  
+**Stable tag:** 1.0.5  
 
 All the tools you need to integrate your WordPress with Facebook and Twitter.
 

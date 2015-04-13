@@ -49,20 +49,20 @@ abstract class LA_Social {
 		);
 	}
 
-	protected $is_active_for_network = false;
+	static protected $is_active_for_network = false;
 
 	function __construct( $file = null ) {
 		if( $file ) {
-			register_activation_hook( $file, array( $this, 'activate' ) );
-			add_filter( 'plugin_action_links_' . plugin_basename($file), array( $this, 'plugin_action_links' ) );
-			$this->is_active_for_network = is_multisite() && is_plugin_active_for_network( plugin_basename( $file ) );
+			register_activation_hook( $file, array( &$this, 'activate' ) );
+			add_filter( 'plugin_action_links_' . plugin_basename($file), array( &$this, 'plugin_action_links' ) );
+			LA_Social::$is_active_for_network = is_multisite() && is_plugin_active_for_network( plugin_basename( $file ) );
 		}
-		add_action( 'oauth_start_'. $this->api_slug(), array( $this, 'oauth_start' ) );
-		add_action( 'admin_init', array( $this, 'admin_init' ) );
-		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+		add_action( 'oauth_start_'. $this->api_slug(), array( &$this, 'oauth_start' ) );
+		add_action( 'admin_init', array( &$this, 'admin_init' ) );
+		add_action( 'la_social_notices', array( &$this, 'admin_notices' ) );
 
-		add_action('admin_menu', array( $this, 'admin_menu' ) );
-		add_action('network_admin_menu', array( $this, 'network_admin_menu' ) );
+		add_action( 'la_social_options_page', array( &$this, '_options_page' ) );
+		add_action( 'la_social_app_options_page', array( &$this, '_app_options_page' ) );
 	}
 
 	/* Options */
@@ -154,43 +154,43 @@ abstract class LA_Social {
 
 	function user_can_edit_app_options() {
 		return !$this->all_app_options_are_defined() &&
-			( $this->is_active_for_network ? is_super_admin() : current_user_can('manage_options') );
+			( LA_Social::$is_active_for_network ? is_super_admin() : current_user_can('manage_options') );
 	}
 
-	function options_page_link() {
-		return admin_url('options-general.php?page=' . $this->prefix() );
+	static function options_page_link() {
+		return admin_url('options-general.php?page=la' );
 	}
 
-	function app_options_page_link() {
-		return $this->is_active_for_network ?
-			admin_url('network/settings.php?page=' . $this->prefix() . 'app' ) :
-			admin_url('options-general.php?page=' . $this->prefix() . 'app' );
+	static function app_options_page_link() {
+		return LA_Social::$is_active_for_network ?
+			admin_url('network/settings.php?page=la_app' ) :
+			admin_url('options-general.php?page=la_app' );
 	}
 
-	function admin_menu() {
-		add_options_page($this->name(), $this->name(), 'manage_options', $this->prefix(), array( $this, 'options_page' ) );
-		if( (! $this->is_active_for_network ) && $this->user_can_edit_app_options() ) {
-			add_submenu_page( 'options-general.php', sprintf( __('%s App', 'la-social'), $this->name() ), sprintf( __('%s App', 'la-social'), $this->name() ), 'manage_options', $this->prefix() . 'app', array( $this, 'app_options_page' ) );
+	static function admin_menu() {
+		add_options_page( __('LA Social', 'la-social'),  __('LA Social', 'la-social'), 'manage_options', 'la', array( 'LA_Social', 'options_page' ) );
+		if( (! LA_Social::$is_active_for_network ) ) {
+			add_submenu_page( 'options-general.php', __('LA Social Apps', 'la-social'), __('LA Social Apps', 'la-social'), 'manage_options', 'la_app', array( 'LA_Social', 'app_options_page' ) );
 		}
 	}
-	function network_admin_menu() {
-		if( $this->is_active_for_network && $this->user_can_edit_app_options() ) {
-			add_submenu_page('settings.php', sprintf( __('%s App', 'la-social'), $this->name() ), sprintf( __('%s App', 'la-social'), $this->name() ), 'manage_options', $this->prefix() . 'app', array( $this, 'app_options_page' ) );
+	static function network_admin_menu() {
+		if( LA_Social::$is_active_for_network ) {
+			add_submenu_page('settings.php', __('LA Social Apps', 'la-social'), __('LA Social Apps', 'la-social'), 'manage_options', 'la_app', array( 'LA_Social', 'app_options_page' ) );
 		}
 	}
 
 	function admin_init() {
-		register_setting( $this->prefix() . '_options', $this->prefix() . '_options', array( $this, 'sanitize_options' ) );
+		register_setting( 'la', $this->prefix() . '_options', array( &$this, 'sanitize_options' ) );
 		$this->register_settings( sprintf( __('%s Settings', 'la-social'), $this->name() ), 'options' );
 
 		if( $this->app_options_defined() ) {
 			return;
 		}
 
-		register_setting( $this->prefix() . '_app_options', $this->prefix() . '_app_options', array( $this, 'sanitize_app_options' ) );
-		$this->register_settings( sprintf( __('%s App Settings', 'la-social'), $this->name() ), 'app_options' );
+		register_setting( 'la_app', $this->prefix() . '_app_options', array( &$this, 'sanitize_app_options' ) );
+		$this->register_settings( $this->name(), 'app_options' );
 
-        add_filter('pre_update_option_' . $this->prefix() . '_app_options', array( $this, 'pre_update_app_options' ), 10, 2 );
+        add_filter('pre_update_option_la_app_options', array( &$this, 'pre_update_app_options' ), 10, 2 );
 	}
 
 	function register_settings( $title, $options_page = 'options' ) {
@@ -204,7 +204,7 @@ abstract class LA_Social {
 			$field['options_group'] = $options_group;
 			$field['id'] = $this->prefix() . '-' . $field['name'];
 
-			add_settings_field( $field['id'], $field['label'], array( $this, 'settings_field' ), $page, $section, $field );
+			add_settings_field( $field['id'], $field['label'], array( &$this, 'settings_field' ), $page, $section, $field );
 		}
 
 		apply_filters( $this->prefix() . '_register_' . $options_page, $page, $options_group );
@@ -218,54 +218,56 @@ abstract class LA_Social {
 	}
 
 	function options_section_callback() {
+		echo '<h2>', $this->name(), '</h2>';
 	}
 	function app_options_section_callback() {
+		echo '<h2>', $this->name(), '</h2>';
 	}
 
 	abstract function sanitize_options( $options );
 	abstract function sanitize_app_options( $app_options );
 
-	function options_page() {
+	static function options_page() {
+		do_action( 'la_social_notices' );
 		?>
 		<!-- Create a header in the default WordPress 'wrap' container -->
 		 <div class="wrap">
-
-			<h2><?php printf( '%s', $this->name() ); ?></h2>
-
+		 	<h2><?php _e( 'LA Social Options', 'la-social' ); ?></h2>
 			<form method="post" action="options.php"><?php
 
-				settings_fields( $this->prefix() . '_options' );
-				do_settings_sections( $this->prefix() . '_options' );
-
+				settings_fields( 'la' );
+				do_action( 'la_social_options_page' );
 				submit_button();
 
 			?></form>
-
 		</div><!-- /.wrap -->
 		<?php
 	}
-	function app_options_page() {
+	function _options_page() {
+		do_settings_sections( $this->prefix() . '_options' );
+	}
+	static function app_options_page() {
+		do_action( 'la_social_notices' );
 		?>
 		<!-- Create a header in the default WordPress 'wrap' container -->
 		<div class="wrap">
-
-			<h2><?php printf( __('%s App', 'la-social'), $this->name() ); ?></h2>
-
+		 	<h2><?php _e( 'LA Social App Options', 'la-social' ); ?></h2>
 			<form method="post" action="options.php"><?php
 
-				settings_fields( $this->prefix() . '_app_options' );
-				do_settings_sections( $this->prefix() . '_app_options' );
-
+				settings_fields( 'la_app' );
+				do_action( 'la_social_app_options_page' );
 				submit_button();
 
 			?></form>
-
 		</div><!-- /.wrap -->
 		<?php
 	}
+	function _app_options_page() {
+		do_settings_sections( $this->prefix() . '_app_options' );
+	}
 
 	function pre_update_app_options( $options ) {
-		if( $this->is_active_for_network ) {
+		if( LA_Social::$is_active_for_network ) {
             update_site_option( $this->prefix() . '_app_options', $options );
             return null;
 		}
@@ -343,7 +345,7 @@ abstract class LA_Social {
 				sprintf(
 					__('%s needs to be configured on its <a href="%s">app settings</a> page.', 'la-social'),
 					$this->name(),
-					admin_url('options-general.php?page=' . $this->prefix() . 'app' )
+					self::app_options_page_link()
 				)
 			);
 		}
@@ -434,3 +436,6 @@ abstract class LA_Social {
 		return get_called_class();
 	}
 }
+
+add_action( 'admin_menu', array( 'LA_Social', 'admin_menu' ) );
+add_action( 'network_admin_menu', array( 'LA_Social', 'network_admin_menu' ) );
