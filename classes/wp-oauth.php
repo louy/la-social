@@ -26,6 +26,8 @@ function oauth_init() {
 add_action('template_redirect', 'oauth_template_redirect');
 function oauth_template_redirect() {
 	if( get_query_var('oauth') ) {
+		header( 'X-Robots-Tag: noindex, nofollow' );
+
 		$site = explode('/',get_query_var('oauth'));
 		$site = $site[0];
 		do_action('oauth_start_'.$site);
