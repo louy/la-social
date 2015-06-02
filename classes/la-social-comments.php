@@ -18,20 +18,11 @@ class LA_Social_Comments extends LA_Social_Module {
 			add_filter( 'pre_comment_on_post', array( $this, 'pre_comment_on_post' ) );
 
 			add_action( 'wp_footer', array( $this, 'wp_footer' ) );
-			add_action( 'init', array( $this, 'maybe_logout' ) );
 			add_action( 'comment_post', array( $this, 'add_comment_meta' ) );
 			add_action( 'alt_comment_login', array( $this, 'alt_comment_login_button' ) );
 		}
 
 		add_filter( 'get_avatar', array( $this, 'filter_avatar' ), 10, 5 );
-	}
-
-	function maybe_logout() {
-		if( isset( $_GET[ $this->prefix() . '-logout'] ) ) {
-			session_unset();
-			wp_redirect( remove_query_arg( $this->prefix() . '-logout', $this->parent->get_current_url() ) );
-			exit;
-		}
 	}
 
 	function ajax_hook() {
@@ -90,14 +81,17 @@ class LA_Social_Comments extends LA_Social_Module {
 
 		$social_user = $this->parent->get_social_user();
 
-		$image_size = apply_filters('alt_login_image_size', 50);
-
 		if( $social_user ) {
+			$image_size = apply_filters('alt_login_image_size', 50);
+			$logout_url = oauth_link('logout', array(
+				'return_url' => $_REQUEST['return_url'],
+			));
+
 			echo '<div class="social-user social-user-', $this->prefix(), '">',
 					'<img src="', $social_user['image'], '" width="' . $image_size . '" height="' . $image_size . '" class="social-avatar avatar" />',
 					'<h3>', esc_html( sprintf(__('Hi %s!', 'la-social'), $social_user['name'] ) ), '</h3>',
 					'<p>', sprintf( __('You are connected with your %s account.', 'la-social'), $this->parent->api_name() ), ' ',
-						apply_filters( $this->prefix() . '_user_logout','<a rel="nofollow" href="?' . $this->prefix() . '-logout" class="social-logout">' . __('Logout', 'la-social') . '</a>' ),
+						apply_filters( $this->prefix() . '_user_logout','<a rel="nofollow" href="' . esc_attr( $logout_url ) . '" class="social-logout">' . __('Logout', 'la-social') . '</a>' ),
 					'</p>',
 				'</div>';
 			exit;
@@ -124,7 +118,10 @@ class LA_Social_Comments extends LA_Social_Module {
 				if( !$('#alt-comment-login').size() ) {
 					return;
 				}
-				var data = { action: '<?php echo $this->ajax_hook(); ?>' };
+				var data = { 
+					action: '<?php echo $this->ajax_hook(); ?>',
+					return_url: <?php echo json_encode( $this->parent->get_current_url() . '#respond' ); ?>,
+				};
 				$.post(ajax_url, data, function(response) {
 					if (response != '0') {
 						$('#alt-comment-login, #respond .comment-notes').hide();
@@ -195,3 +192,4 @@ if( !function_exists('alt_comment_login') ) {
     add_action( 'comment_form_after_fields' , 'comment_user_details_end'  , 99 );
     add_action( 'comment_form_before_fields', 'alt_comment_login'         , 1  );
 }
+

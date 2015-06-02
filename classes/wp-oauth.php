@@ -30,6 +30,20 @@ function oauth_template_redirect() {
 
 		$site = explode('/',get_query_var('oauth'));
 		$site = $site[0];
+
+		if( $site === 'logout' ) {
+			session_start();
+			session_destroy();
+			$return_url = $_GET['return_url'];
+
+			if( strpos($return_url, get_site_url()) !== 0 ) {
+				$return_url = get_site_url();
+			}
+
+			wp_redirect( $return_url );
+			exit;
+		}
+
 		do_action('oauth_start_'.$site);
 
 		// Nothing happened!?
