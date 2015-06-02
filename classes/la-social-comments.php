@@ -178,7 +178,6 @@ class LA_Social_Comments extends LA_Social_Module {
 	}
 }
 
-
 if( !function_exists('alt_comment_login') ) {
 	function alt_comment_login() {
 		echo '<div id="alt-comment-login">';
@@ -192,4 +191,3 @@ if( !function_exists('alt_comment_login') ) {
     add_action( 'comment_form_after_fields' , 'comment_user_details_end'  , 99 );
     add_action( 'comment_form_before_fields', 'alt_comment_login'         , 1  );
 }
-
